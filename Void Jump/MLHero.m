@@ -10,6 +10,7 @@
 #import "GameScene.h"
 #import "GameViewController.h"
 #import "MLPointsLabel.h"
+#import "MLWorldGenerator.h"
 
 
 static const uint32_t heroCategory = 0x1 << 0;
@@ -23,6 +24,8 @@ static const uint32_t heroCategory = 0x1 << 0;
  You would write it out this way to keep consistency when writing out a lot of masks together.
  obstacleCategory = 0x1 << 1;
  Shift the Value 1, 1 bit to the left. So obstacleCategory = 2.*/
+
+
 static const uint32_t obstacleCategory = 0x1 << 1;
 static const uint32_t groundCategory = 0x1 << 2;
 
@@ -36,6 +39,9 @@ static const uint32_t groundCategory = 0x1 << 2;
     MLHero *hero;
     GameScene *gameScene;
     MLPointsLabel *pointsLabel;
+    MLWorldGenerator *generator;
+    
+    int voidColor;
     
     SKNode *world;
 }
@@ -71,7 +77,17 @@ static const uint32_t groundCategory = 0x1 << 2;
     
     
     return hero;
+
 }
+//
+//
+//-(void)check
+//{
+//        hero = [MLHero spriteNodeWithColor:[self getRandomColor] size:CGSizeMake(40, 40)];
+//        
+//        NSLog(@"Void Color Changed. 2nd Round.");
+//
+//}
 
 
 
@@ -136,6 +152,41 @@ static const uint32_t groundCategory = 0x1 << 2;
     [self removeAllActions];
     
 }
+
+//-(void)changeColor
+//{
+//    hero = [MLHero spriteNodeWithColor:[self getRandomColor] size:CGSizeMake(40, 40)];
+//}
+
+
+//-(UIColor *)getRandomColor
+//{
+//    
+//    int rand = arc4random() % 4;
+//    
+//    UIColor *heroColor;
+//    switch (rand) {
+//        case 0:
+//            heroColor = [UIColor blueColor];
+//            voidColor = 1;
+//            break;
+//        case 1:
+//            heroColor = [UIColor redColor];
+//            voidColor = 2;
+//            break;
+//        case 2:
+//            heroColor = [UIColor blackColor];
+//            voidColor = 3;
+//            break;
+//        case 3:
+//            heroColor = [UIColor greenColor];
+//            voidColor = 4;
+//            break;
+//    }
+//    
+//    return heroColor;
+//    
+//}
 
 
 @end

@@ -16,5 +16,8 @@
 -(void)faster;
 -(void)stop;
 -(void)land;
+//-(void)changeColor;
+//-(void)check;
+
 
 @end

@@ -14,6 +14,10 @@
 + (id)generatorWithWorld:(SKNode *)world;
 -(void)populate;
 -(void)generate;
+-(void)changeColor;
+-(UIColor *)getRandomColor2;
+
+@property (nonatomic,assign) int wallColor;
 
 
 @end

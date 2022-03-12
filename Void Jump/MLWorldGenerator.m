@@ -21,6 +21,8 @@
 
     MLPointsLabel *pointsLabel;
     
+    SKSpriteNode *obstacle;
+    
     int yValue;
     int yPosition;
     
@@ -80,10 +82,27 @@ static const uint32_t groundCategory = 0x1 << 2;
     self.currentGroundX += ground.frame.size.width;
     
     
+    //940 is 3rd
+    if (self.currentObstacleX > 940){
+        obstacle = [SKSpriteNode spriteNodeWithColor:[self getRandomColor2] size: CGSizeMake(40, 60)];
+        NSLog(@"Obstacle Color Changed. 2nd Round.");
+    } else{
+        obstacle = [SKSpriteNode spriteNodeWithTexture:[self getRandomImage]];
+        obstacle.size = CGSizeMake(40, 60);
+    }
     
-    SKSpriteNode *obstacle = [SKSpriteNode spriteNodeWithTexture:[self getRandomImage]];
-    obstacle.size = CGSizeMake(40, 60);
+    
+//    if (pointsLabel.number > 2 && pointsLabel.number < 20){
+//        obstacle = [SKSpriteNode spriteNodeWithColor:[self getRandomColor] size: CGSizeMake(40, 60)];
+//        NSLog(@"Change block color");
+//    } else{
+//        obstacle = [SKSpriteNode spriteNodeWithTexture:[self getRandomImage]];
+//        obstacle.size = CGSizeMake(40, 60);
+//    }
     obstacle.name = @"obstacle";
+    
+    
+    
     
     if (self.currentObstacleX == 400) {
         obstacle.position = CGPointMake(self.currentObstacleX, ground.position.y + ground.frame.size.height/2 + obstacle.frame.size.height/2);
@@ -161,6 +180,12 @@ static const uint32_t groundCategory = 0x1 << 2;
 
 }
 
+-(void)changeColor
+{
+    obstacle = [SKSpriteNode spriteNodeWithColor:[self getRandomColor2] size: CGSizeMake(40, 60)];
+    NSLog(@"Change");
+}
+
 
 
 
@@ -236,6 +261,36 @@ static const uint32_t groundCategory = 0x1 << 2;
     
     return wall;
 
+}
+
+
+-(UIColor *)getRandomColor2
+{
+    
+    int rand = arc4random() % 4;
+    
+    UIColor *obstacleColor;
+    switch (rand) {
+        case 0:
+            obstacleColor = [UIColor blueColor];
+            self.wallColor = 1;
+            break;
+        case 1:
+            obstacleColor = [UIColor redColor];
+            self.wallColor = 2;
+            break;
+        case 2:
+            obstacleColor = [UIColor blackColor];
+            self.wallColor = 3;
+            break;
+        case 3:
+            obstacleColor = [UIColor greenColor];
+            self.wallColor = 4;
+            break;
+    }
+    
+    return obstacleColor;
+    
 }
 
 @end

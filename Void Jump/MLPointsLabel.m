@@ -12,7 +12,6 @@
 
 @implementation MLPointsLabel
 
-
 + (id)pointsLabelWithFontNamed:(NSString *)fontName
 {
     

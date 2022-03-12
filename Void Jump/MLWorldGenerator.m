@@ -8,6 +8,7 @@
 
 #import "MLWorldGenerator.h"
 #import "MLPointsLabel.h"
+#import "GameScene.h"
 
 
 @interface MLWorldGenerator ()
@@ -20,6 +21,8 @@
 @implementation MLWorldGenerator{
 
     MLPointsLabel *pointsLabel;
+    
+    SKSpriteNode *obstacle;
     
     int yValue;
     int yPosition;
@@ -80,10 +83,26 @@ static const uint32_t groundCategory = 0x1 << 2;
     self.currentGroundX += ground.frame.size.width;
     
     
+    //940 is 3rd
+    if (self.currentObstacleX > 940){
+        obstacle = [SKSpriteNode spriteNodeWithColor:[self getRandomColor] size: CGSizeMake(40, 60)];
+    } else{
+        obstacle = [SKSpriteNode spriteNodeWithTexture:[self getRandomImage]];
+        obstacle.size = CGSizeMake(40, 60);
+    }
     
-    SKSpriteNode *obstacle = [SKSpriteNode spriteNodeWithTexture:[self getRandomImage]];
-    obstacle.size = CGSizeMake(40, 60);
+    
+//    if (pointsLabel.number > 2 && pointsLabel.number < 20){
+//        obstacle = [SKSpriteNode spriteNodeWithColor:[self getRandomColor] size: CGSizeMake(40, 60)];
+//        NSLog(@"Change block color");
+//    } else{
+//        obstacle = [SKSpriteNode spriteNodeWithTexture:[self getRandomImage]];
+//        obstacle.size = CGSizeMake(40, 60);
+//    }
     obstacle.name = @"obstacle";
+    
+    
+    
     
     if (self.currentObstacleX == 400) {
         obstacle.position = CGPointMake(self.currentObstacleX, ground.position.y + ground.frame.size.height/2 + obstacle.frame.size.height/2);
@@ -165,6 +184,7 @@ static const uint32_t groundCategory = 0x1 << 2;
 
 
 
+
 /** This is an example of randomizing the Colors.
  -(UIColor *)getRandomColor
 {
@@ -236,6 +256,44 @@ static const uint32_t groundCategory = 0x1 << 2;
     
     return wall;
 
+}
+
+
+-(UIColor *)getRandomColor
+{
+    
+    int rand = arc4random() % 4;
+    
+    UIColor *obstacleColor;
+    switch (rand) {
+        case 0:
+            obstacleColor = [SKColor blueColor];
+            obstacle.name = @"Blue";
+            self._wallColor = 1;
+            NSLog(@"Blue is activated obs");
+            break;
+        case 1:
+            obstacleColor = [SKColor redColor];
+            obstacle.name = @"Red";
+            self._wallColor = 2;
+            NSLog(@"Red is activated obs");
+            break;
+        case 2:
+            obstacleColor = [SKColor blackColor];
+            obstacle.name = @"Black";
+            self._wallColor = 3;
+            NSLog(@"Black is activated obs");
+            break;
+        case 3:
+            obstacleColor = [SKColor greenColor];
+            obstacle.name = @"Green";
+            self._wallColor = 4;
+            NSLog(@"Green is activated obs");
+            break;
+    }
+    
+    return obstacleColor;
+    
 }
 
 @end

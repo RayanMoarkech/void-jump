@@ -16,5 +16,7 @@
 -(void)faster;
 -(void)stop;
 -(void)land;
+//-(void)check;
+//-(UIColor *)getRandomColor;
 
 @end

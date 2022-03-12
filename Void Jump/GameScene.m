@@ -58,12 +58,15 @@ static const float iPadPro_ScaleFactorY = 2.47342995169;
     SKLabelNode *bestLabel;
     SKLabelNode *gameOverLabel;
     SKLabelNode *tapToResetLabel;
+    SKLabelNode *colorIndicatorLabel;
     
     SKShapeNode *cloud1;
     SKShapeNode *cloud2;
     
     float scaleFactorX;
     float scaleFactorY;
+    
+    int labelColor;
     
     AVAudioPlayer *_backgroundMusicPlayer;
     AVAudioPlayer *_onPlayer;
@@ -166,6 +169,11 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
     bestLabel.fontSize = 18 * scaleFactorX;
     
     
+    colorIndicatorLabel.position = CGPointMake(0, -160 * scaleFactorY);
+    colorIndicatorLabel.fontSize = 60 * scaleFactorX;
+    
+    
+    
     cloud1.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(10 * scaleFactorX, 95 * scaleFactorY, 100 * scaleFactorX, 40 * scaleFactorY)].CGPath;
     cloud2.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(-270 * scaleFactorX, 55 * scaleFactorY, 100 * scaleFactorX, 40 * scaleFactorY)].CGPath;
     
@@ -203,6 +211,17 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
     touchView.zPosition = 1;
     [self addChild:touchView];
     [self animationWithPulse:touchView];
+    
+    
+    colorIndicatorLabel = [SKLabelNode labelNodeWithFontNamed:GAME_FONT];
+    colorIndicatorLabel.name = @"colorIndicatorLabel";
+    colorIndicatorLabel.text = @"";
+    colorIndicatorLabel.hidden = YES;
+    [self addChild:colorIndicatorLabel];
+    
+    
+    
+    
     
 
     [self populateCloud];
@@ -403,6 +422,31 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
 
 }
 
+
+
+-(void)checkSameColor
+{
+    if (generator._wallColor == labelColor){
+        NSLog(@"Same Color");
+    } else {
+        NSLog(@"Different Color");
+    }
+    
+    if (pointsLabel.number == 3) {
+        
+    }
+    if (generator.getRandomColor  == [UIColor blueColor] &&
+        colorIndicatorLabel.fontColor == [UIColor blueColor]) {
+        NSLog(@"Same Blue Color");
+    }
+}
+
+
+
+
+
+
+
 -(void)didSimulatePhysics
 {
     /* It will center the hero*/
@@ -422,10 +466,14 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
             pointsLabel = (MLPointsLabel *)[self childNodeWithName:@"pointsLabel"];
             [pointsLabel incrementScore];
             
-            if (pointsLabel.number == 10) {
-                [hero faster];
-                NSLog(@"GOOOO");
+            if (pointsLabel.number > 2 && pointsLabel.number < 20) {
+//                [hero faster];
 //              self.paused = TRUE;
+//                [hero check];
+                colorIndicatorLabel.hidden = NO;
+                [self getRandomColor];
+                
+                
             }
         }
     }];
@@ -512,12 +560,32 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
         [self onPlaySound:(NSString *)@"onClick.mp3"];
         [self clear]; /* When isGameOver is activated then the clear method is activated. */
 
-    }
-    else{
+//    else if (pointsLabel.number > 2 && pointsLabel.number < 20) {
+//            
+//        if ((obstacle == [SKSpriteNode spriteNodeWithColor:[UIColor blueColor] size: CGSizeMake(40, 60)] &&
+//                 colorIndicatorLabel.fontColor == [UIColor blueColor]) ||
+//                
+//            (obstacle == [SKSpriteNode spriteNodeWithColor:[UIColor redColor] size: CGSizeMake(40, 60)] &&
+//                 colorIndicatorLabel.fontColor == [UIColor redColor]) ||
+//                
+//            (obstacle == [SKSpriteNode spriteNodeWithColor:[UIColor blackColor] size: CGSizeMake(40, 60)] &&
+//                 colorIndicatorLabel.fontColor == [UIColor blackColor]) ||
+//                
+//            (obstacle == [SKSpriteNode spriteNodeWithColor:[UIColor greenColor] size: CGSizeMake(40, 60)] &&
+//                 colorIndicatorLabel.fontColor == [UIColor greenColor])){
+//                    
+//                NSLog(@"Same Colors; Void & Obstacle");
+//                    //The void can pass, we should next disable the touches.
+//            }else{
+//                [hero jump];
+//                [self onPlaySound:(NSString *)@"onJump.wav"];
+//                
+//            }
+    }else {
         [hero jump];
         [self onPlaySound:(NSString *)@"onJump.wav"];
-
     }
+    
 }
 
 
@@ -577,15 +645,17 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
 -(void)didBeginContact:(SKPhysicsContact *)contact
 {
     
-    if ([contact.bodyA.node.name isEqualToString: @"ground"] || [contact.bodyB.node.name isEqualToString:@"ground"]) {
+        if ([contact.bodyA.node.name isEqualToString: @"ground"] || [contact.bodyB.node.name isEqualToString:@"ground"]) {
         /* In this case, we cannot actually know which body is going to be the Hero and which body is going to be the Ground. So we insert the SKPhysicsContact of the Ground and Ground. So when this is activated, it means that something interacted or got in contact with Ground which is usually the Hero touching the Ground, when landing from the jump. The Obstacle and Ground doesn't interact with each other, so when the if (condition) is true, it means that the Hero is interacting with the Ground and nothing else. */
         [hero land];
-    } else {
+        
+        } else {
     
         /* This didBeginContact is for when 2 PhysicsBodies got on contact together. (Body A / Body B)
          It is used for a Hero with a door, enemy, object.
          Search SKPhysicsContact in the Documentation and API. */
         [self gameOver];
+        
     }
 }
 
@@ -652,6 +722,63 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
     // If neccessary.
     [_onPlayer stop];
 }
+
+
+
+
+
+
+
+
+
+
+//Random colorIndicatorLabel
+
+-(SKLabelNode *)getRandomColor
+{
+    
+    int rand = arc4random() % 4;
+    
+    switch (rand) {
+        case 0:
+            colorIndicatorLabel.hidden = NO;
+            colorIndicatorLabel.text = @"Blue";
+            colorIndicatorLabel.fontColor = [UIColor blueColor];
+            labelColor = 1;
+            NSLog(@"Blue is activated");
+            break;
+        case 1:
+            colorIndicatorLabel.hidden = NO;
+            colorIndicatorLabel.text = @"Red";
+            colorIndicatorLabel.fontColor = [UIColor redColor];
+            labelColor = 2;
+            NSLog(@"Red is activated");
+            break;
+        case 2:
+            colorIndicatorLabel.hidden = NO;
+            colorIndicatorLabel.text = @"Black";
+            colorIndicatorLabel.fontColor = [UIColor blackColor];
+            labelColor = 3;
+            NSLog(@"Black is activated");
+            break;
+        case 3:
+            colorIndicatorLabel.hidden = NO;
+            colorIndicatorLabel.text = @"Green";
+            colorIndicatorLabel.fontColor = [UIColor greenColor];
+            labelColor = 4;
+            NSLog(@"Green is activated");
+            break;
+    }
+    
+    return colorIndicatorLabel;
+    
+}
+
+
+
+
+
+
 
 
 

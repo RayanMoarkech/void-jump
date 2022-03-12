@@ -27,6 +27,7 @@ static const float iPadPro_ScaleFactorY = 2.47342995169;
 #import "GameViewController.h"
 #import "GameData.h"
 #import "LoadingScreenView.h"
+#import "MLColorIndicator.h"
 
 #import <AVFoundation/AVFoundation.h>
 
@@ -55,6 +56,7 @@ static const float iPadPro_ScaleFactorY = 2.47342995169;
     SKSpriteNode *touchView;
     MLPointsLabel *pointsLabel;
     MLPointsLabel *highscoreLabel;
+    MLColorIndicator *colorIndicator;
     SKLabelNode *bestLabel;
     SKLabelNode *gameOverLabel;
     SKLabelNode *tapToResetLabel;
@@ -64,6 +66,9 @@ static const float iPadPro_ScaleFactorY = 2.47342995169;
     
     float scaleFactorX;
     float scaleFactorY;
+    
+    int voidColor;
+    int wallColor;
     
     AVAudioPlayer *_backgroundMusicPlayer;
     AVAudioPlayer *_onPlayer;
@@ -166,6 +171,15 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
     bestLabel.fontSize = 18 * scaleFactorX;
     
     
+    colorIndicator.position = CGPointMake(0, -200 * scaleFactorY);
+    colorIndicator.fontSize = 100 * scaleFactorX;
+    colorIndicator = [MLColorIndicator labelNodeWithFontNamed:GAME_FONT];
+    colorIndicator.name = @"colorIndicator";
+    colorIndicator.text = @"HI";
+    [self addChild:colorIndicator];
+    
+    
+    
     cloud1.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(10 * scaleFactorX, 95 * scaleFactorY, 100 * scaleFactorX, 40 * scaleFactorY)].CGPath;
     cloud2.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(-270 * scaleFactorX, 55 * scaleFactorY, 100 * scaleFactorX, 40 * scaleFactorY)].CGPath;
     
@@ -203,6 +217,9 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
     touchView.zPosition = 1;
     [self addChild:touchView];
     [self animationWithPulse:touchView];
+    
+    
+    
     
 
     [self populateCloud];
@@ -297,6 +314,7 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
     [[self childNodeWithName:@"tapToBeginLabel"] removeFromParent];
     [[self childNodeWithName:@"touchTutorial"] removeFromParent];
     [hero start];
+    [hero check];
     
     //in-Game Background Sound
     
@@ -403,6 +421,23 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
 
 }
 
+
+
+-(void)checkSameColor
+{
+    if (wallColor == voidColor){
+        NSLog(@"Same Color");
+    } else {
+        NSLog(@"Different Color");
+    }
+}
+
+
+
+
+
+
+
 -(void)didSimulatePhysics
 {
     /* It will center the hero*/
@@ -422,10 +457,14 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
             pointsLabel = (MLPointsLabel *)[self childNodeWithName:@"pointsLabel"];
             [pointsLabel incrementScore];
             
-            if (pointsLabel.number == 10) {
-                [hero faster];
+            if (pointsLabel.number > 2 && pointsLabel.number < 20) {
+//                [hero faster];
                 NSLog(@"GOOOO");
 //              self.paused = TRUE;
+                [hero check];
+                colorIndicator.hidden = NO;
+                [colorIndicator getRandomColor];
+                
             }
         }
     }];

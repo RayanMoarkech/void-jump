@@ -14,6 +14,8 @@
 + (id)generatorWithWorld:(SKNode *)world;
 -(void)populate;
 -(void)generate;
+-(void)changeColor;
+-(UIColor *)getRandomColor;
 
 
 @end

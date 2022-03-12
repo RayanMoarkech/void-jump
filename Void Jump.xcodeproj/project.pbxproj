@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -36,6 +36,7 @@
 		A11880D01C0139EA000F4BA2 /* HowToPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = A11880CF1C0139EA000F4BA2 /* HowToPlayView.m */; };
 		A11880D31C013A21000F4BA2 /* CreatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A11880D21C013A21000F4BA2 /* CreatorViewController.m */; };
 		A120EFD41CA9AF5B00A8AD8E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A120EFD31CA9AF5B00A8AD8E /* AVFoundation.framework */; };
+		A1782D0B1CBD66D800FEC07B /* MLColorIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = A1782D0A1CBD66D800FEC07B /* MLColorIndicator.m */; };
 		A18280A91BFA5FFF00D9875F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A18280A81BFA5FFF00D9875F /* Images.xcassets */; };
 		A184B8FC1C3140A600B7363D /* touch.png in Resources */ = {isa = PBXBuildFile; fileRef = A184B8FB1C3140A600B7363D /* touch.png */; };
 		A184B8FE1C314CB800B7363D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A184B8FD1C314CB800B7363D /* QuartzCore.framework */; };
@@ -75,7 +76,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0BBAB7E01E4C970E003C49B7 /* Void Jump.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Void Jump.entitlements"; sourceTree = "<group>"; };
 		A1085D0A1BE0009600112F19 /* Void Jump.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Void Jump.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1085D0E1BE0009600112F19 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A1085D101BE0009600112F19 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -121,6 +121,8 @@
 		A11880D11C013A21000F4BA2 /* CreatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreatorViewController.h; path = "../../../../../Rayan/Desktop/My Apps/Void Jump/CreatorViewController.h"; sourceTree = "<group>"; };
 		A11880D21C013A21000F4BA2 /* CreatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreatorViewController.m; path = "../../../../../Rayan/Desktop/My Apps/Void Jump/CreatorViewController.m"; sourceTree = "<group>"; };
 		A120EFD31CA9AF5B00A8AD8E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		A1782D091CBD66D800FEC07B /* MLColorIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLColorIndicator.h; sourceTree = "<group>"; };
+		A1782D0A1CBD66D800FEC07B /* MLColorIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLColorIndicator.m; sourceTree = "<group>"; };
 		A18280A81BFA5FFF00D9875F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A184B8FB1C3140A600B7363D /* touch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = touch.png; sourceTree = "<group>"; };
 		A184B8FD1C314CB800B7363D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -198,7 +200,6 @@
 		A1085D0C1BE0009600112F19 /* Void Jump */ = {
 			isa = PBXGroup;
 			children = (
-				0BBAB7E01E4C970E003C49B7 /* Void Jump.entitlements */,
 				A1085D101BE0009600112F19 /* AppDelegate.h */,
 				A1085D111BE0009600112F19 /* AppDelegate.m */,
 				A1085D1B1BE0009600112F19 /* Main.storyboard */,
@@ -221,6 +222,8 @@
 				A1085D4C1BE0091900112F19 /* MLWorldGenerator.m */,
 				A11880C61C00BBFD000F4BA2 /* MLPointsLabel.h */,
 				A11880C71C00BBFD000F4BA2 /* MLPointsLabel.m */,
+				A1782D091CBD66D800FEC07B /* MLColorIndicator.h */,
+				A1782D0A1CBD66D800FEC07B /* MLColorIndicator.m */,
 				A11880C41C00BBFD000F4BA2 /* GameData.h */,
 				A11880C51C00BBFD000F4BA2 /* GameData.m */,
 				A1E4AD601CB1E17200413CCA /* PauseMenu.h */,
@@ -347,17 +350,12 @@
 		A1085D021BE0009600112F19 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Rayan Moarkech";
 				TargetAttributes = {
 					A1085D091BE0009600112F19 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = S86ZE5EJCJ;
-						SystemCapabilities = {
-							com.apple.Push = {
-								enabled = 0;
-							};
-						};
 					};
 					A1085D271BE0009600112F19 = {
 						CreatedOnToolsVersion = 7.1;
@@ -370,7 +368,7 @@
 				};
 			};
 			buildConfigurationList = A1085D051BE0009600112F19 /* Build configuration list for PBXProject "Void Jump" */;
-			compatibilityVersion = "Xcode 6.3";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -456,6 +454,7 @@
 				A1085D151BE0009600112F19 /* GameScene.m in Sources */,
 				A1E4AD621CB1E17200413CCA /* PauseMenu.m in Sources */,
 				A11880D01C0139EA000F4BA2 /* HowToPlayView.m in Sources */,
+				A1782D0B1CBD66D800FEC07B /* MLColorIndicator.m in Sources */,
 				A1085D4A1BE007A600112F19 /* MLHero.m in Sources */,
 				A1085D0F1BE0009600112F19 /* main.m in Sources */,
 				A11880C91C00BBFD000F4BA2 /* MLPointsLabel.m in Sources */,
@@ -528,10 +527,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -553,7 +550,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -574,10 +571,8 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -593,7 +588,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -609,7 +604,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Void Jump/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Rayan-Moarkech.Void-Jump";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -626,7 +621,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Void Jump/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Rayan-Moarkech.Void-Jump";
 				PRODUCT_NAME = "$(TARGET_NAME)";

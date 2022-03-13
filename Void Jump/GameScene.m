@@ -61,6 +61,11 @@ static const float iPadPro_ScaleFactorY = 2.47342995169;
     SKLabelNode *gameOverLabel;
     SKLabelNode *tapToResetLabel;
     
+    SKLabelNode *blueIndicatorLabel;
+    SKLabelNode *redIndicatorLabel;
+    SKLabelNode *blackIndicatorLabel;
+    SKLabelNode *greenIndicatorLabel;
+    
     SKShapeNode *cloud1;
     SKShapeNode *cloud2;
     
@@ -173,6 +178,18 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
     colorIndicatorLabel.position = CGPointMake(0, -160 * scaleFactorY);
     colorIndicatorLabel.fontSize = 60 * scaleFactorX;
     
+    blueIndicatorLabel.position = CGPointMake(0, -160 * scaleFactorY);
+    blueIndicatorLabel.fontSize = 60 * scaleFactorX;
+    
+    redIndicatorLabel.position = CGPointMake(0, -160 * scaleFactorY);
+    redIndicatorLabel.fontSize = 60 * scaleFactorX;
+    
+    blackIndicatorLabel.position = CGPointMake(0, -160 * scaleFactorY);
+    blackIndicatorLabel.fontSize = 60 * scaleFactorX;
+    
+    greenIndicatorLabel.position = CGPointMake(0, -160 * scaleFactorY);
+    greenIndicatorLabel.fontSize = 60 * scaleFactorX;
+    
     
     
     cloud1.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(10 * scaleFactorX, 95 * scaleFactorY, 100 * scaleFactorX, 40 * scaleFactorY)].CGPath;
@@ -215,11 +232,33 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
     
     
     
-    colorIndicatorLabel = [SKLabelNode labelNodeWithFontNamed:GAME_FONT];
-    colorIndicatorLabel.name = @"colorIndicatorLabel";
-    colorIndicatorLabel.text = @"";
-    colorIndicatorLabel.hidden = YES;
-    [self addChild:colorIndicatorLabel];
+    blueIndicatorLabel = [SKLabelNode labelNodeWithFontNamed:GAME_FONT];
+    blueIndicatorLabel.name = @"blueIndicatorLabel";
+    blueIndicatorLabel.text = @"";
+    blueIndicatorLabel.hidden = YES;
+    blueIndicatorLabel.zPosition = 1;
+    [self addChild:blueIndicatorLabel];
+    
+    redIndicatorLabel = [SKLabelNode labelNodeWithFontNamed:GAME_FONT];
+    redIndicatorLabel.name = @"redIndicatorLabel";
+    redIndicatorLabel.text = @"";
+    redIndicatorLabel.hidden = YES;
+    redIndicatorLabel.zPosition = YES;
+    [self addChild:redIndicatorLabel];
+    
+    blackIndicatorLabel = [SKLabelNode labelNodeWithFontNamed:GAME_FONT];
+    blackIndicatorLabel.name = @"blackIndicatorLabel";
+    blackIndicatorLabel.text = @"";
+    blackIndicatorLabel.hidden = YES;
+    blackIndicatorLabel.zPosition = YES;
+    [self addChild:blackIndicatorLabel];
+    
+    greenIndicatorLabel = [SKLabelNode labelNodeWithFontNamed:GAME_FONT];
+    greenIndicatorLabel.name = @"greenIndicatorLabel";
+    greenIndicatorLabel.text = @"";
+    greenIndicatorLabel.hidden = YES;
+    greenIndicatorLabel.zPosition = 1;
+    [self addChild:greenIndicatorLabel];
     
     
     
@@ -460,11 +499,17 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
             pointsLabel = (MLPointsLabel *)[self childNodeWithName:@"pointsLabel"];
             [pointsLabel incrementScore];
             
-            if (pointsLabel.number > 2 && pointsLabel.number < 20) {
+            if (pointsLabel.number > 3 && pointsLabel.number < 20) {
                 //                [hero faster];
                 //              self.paused = TRUE;
                 //                [hero check];
                 colorIndicatorLabel.hidden = NO;
+                
+                blueIndicatorLabel.hidden = NO;
+                redIndicatorLabel.hidden = NO;
+                blackIndicatorLabel.hidden = NO;
+                greenIndicatorLabel.hidden = NO;
+                
                 [self getRandomColor1];
                 
             }
@@ -552,8 +597,40 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
     else if (self.isGameOver){
         [self onPlaySound:(NSString *)@"onClick.mp3"];
         [self clear]; /* When isGameOver is activated then the clear method is activated. */
-
+        
     }
+    
+    
+    
+    
+    else if (pointsLabel.number > 2 && pointsLabel.number < 20) {
+        
+        if ((generator.wallColor == 1 &&
+             labelColor == 1) ||
+        
+            (generator.wallColor == 2 &&
+             labelColor == 2) ||
+        
+            (generator.wallColor == 3 &&
+             labelColor == 3) ||
+        
+            (generator.wallColor == 4 &&
+             labelColor == 4)){
+        
+                NSLog(@"Same Colors; Void & Obstacle");
+                
+                            //The void can pass, we should next disable the touches.
+            }else{
+                [hero jump];
+                [self onPlaySound:(NSString *)@"onJump.wav"];
+
+    
+            }}
+    
+    
+    
+    
+    
     else{
         [hero jump];
         [self onPlaySound:(NSString *)@"onJump.wav"];
@@ -698,43 +775,98 @@ static NSString *GAME_FONT = @"AmericanTypewriter-Bold"; /* This is a short name
 
 //Random colorIndicatorLabel
 
--(UIColor *)getRandomColor1
+//-(UIColor *)getRandomColor1
+//{
+//    
+//    int rand = arc4random() % 4;
+//    
+//    switch (rand) {
+//        case 0:
+//            colorIndicatorLabel.hidden = NO;
+//            colorIndicatorLabel.text = @"Blue";
+//            colorIndicatorLabel.fontColor = [UIColor blueColor];
+//            labelColor = 1;
+//            NSLog(@"Blue is activated");
+//            break;
+//        case 1:
+//            colorIndicatorLabel.hidden = NO;
+//            colorIndicatorLabel.text = @"Red";
+//            colorIndicatorLabel.fontColor = [UIColor redColor];
+//            labelColor = 2;
+//            NSLog(@"Red is activated");
+//            break;
+//        case 2:
+//            colorIndicatorLabel.hidden = NO;
+//            colorIndicatorLabel.text = @"Black";
+//            colorIndicatorLabel.fontColor = [UIColor blackColor];
+//            labelColor = 3;
+//            NSLog(@"Black is activated");
+//            break;
+//        case 3:
+//            colorIndicatorLabel.hidden = NO;
+//            colorIndicatorLabel.text = @"Green";
+//            colorIndicatorLabel.fontColor = [UIColor greenColor];
+//            labelColor = 4;
+//            NSLog(@"Green is activated");
+//            break;
+//    }
+//    
+//    return colorIndicatorLabel.fontColor;
+//    
+//}
+
+
+-(void)getRandomColor1
 {
     
     int rand = arc4random() % 4;
     
     switch (rand) {
         case 0:
-            colorIndicatorLabel.hidden = NO;
-            colorIndicatorLabel.text = @"Blue";
-            colorIndicatorLabel.fontColor = [UIColor blueColor];
+            redIndicatorLabel.hidden = YES;
+            blackIndicatorLabel.hidden = YES;
+            greenIndicatorLabel.hidden = YES;
+            
+            blueIndicatorLabel.hidden = NO;
+            blueIndicatorLabel.text = @"Blue";
+            blueIndicatorLabel.fontColor = [UIColor blueColor];
             labelColor = 1;
             NSLog(@"Blue is activated");
             break;
         case 1:
-            colorIndicatorLabel.hidden = NO;
-            colorIndicatorLabel.text = @"Red";
-            colorIndicatorLabel.fontColor = [UIColor redColor];
+            blueIndicatorLabel.hidden = YES;
+            blackIndicatorLabel.hidden = YES;
+            greenIndicatorLabel.hidden = YES;
+            
+            redIndicatorLabel.hidden = NO;
+            redIndicatorLabel.text = @"Red";
+            redIndicatorLabel.fontColor = [UIColor redColor];
             labelColor = 2;
             NSLog(@"Red is activated");
             break;
         case 2:
-            colorIndicatorLabel.hidden = NO;
-            colorIndicatorLabel.text = @"Black";
-            colorIndicatorLabel.fontColor = [UIColor blackColor];
+            blueIndicatorLabel.hidden = YES;
+            redIndicatorLabel.hidden = YES;
+            greenIndicatorLabel.hidden = YES;
+            
+            blackIndicatorLabel.hidden = NO;
+            blackIndicatorLabel.text = @"Black";
+            blackIndicatorLabel.fontColor = [UIColor blackColor];
             labelColor = 3;
             NSLog(@"Black is activated");
             break;
         case 3:
-            colorIndicatorLabel.hidden = NO;
-            colorIndicatorLabel.text = @"Green";
-            colorIndicatorLabel.fontColor = [UIColor greenColor];
+            blueIndicatorLabel.hidden = YES;
+            redIndicatorLabel.hidden = YES;
+            blackIndicatorLabel.hidden = YES;
+            
+            greenIndicatorLabel.hidden = NO;
+            greenIndicatorLabel.text = @"Green";
+            greenIndicatorLabel.fontColor = [UIColor greenColor];
             labelColor = 4;
             NSLog(@"Green is activated");
             break;
     }
-    
-    return colorIndicatorLabel.fontColor;
     
 }
 

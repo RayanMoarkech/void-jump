@@ -28,6 +28,8 @@
     
     float scaleFactorX;
     float scaleFactorY;
+    
+    NSTimer *generatorTimer;
 }
 
 static const uint32_t obstacleCategory = 0x1 << 1;
@@ -83,9 +85,9 @@ static const uint32_t groundCategory = 0x1 << 2;
     
     
     //940 is 3rd
-    if (self.currentObstacleX > 940){
+    if (self.currentObstacleX > (400 +(2 * 270))){
         obstacle = [SKSpriteNode spriteNodeWithColor:[self getRandomColor2] size: CGSizeMake(40, 60)];
-        NSLog(@"Obstacle Color Changed. 2nd Round.");
+        self.positionX = self.currentObstacleX;
     } else{
         obstacle = [SKSpriteNode spriteNodeWithTexture:[self getRandomImage]];
         obstacle.size = CGSizeMake(40, 60);
@@ -118,7 +120,12 @@ static const uint32_t groundCategory = 0x1 << 2;
     [self.worldnode addChild:obstacle];
     
     
-    self.currentObstacleX += 270;
+    if (self.currentObstacleX == 940){
+        generatorTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(obstaclePositionX) userInfo:nil repeats:YES];
+
+    }else{
+        self.currentObstacleX += 270;
+    }
     
     
     
@@ -141,6 +148,7 @@ static const uint32_t groundCategory = 0x1 << 2;
         default:
             break;
     }
+    
     
     
     
@@ -180,11 +188,22 @@ static const uint32_t groundCategory = 0x1 << 2;
 
 }
 
--(void)changeColor
+
+-(void)obstaclePositionX
 {
-    obstacle = [SKSpriteNode spriteNodeWithColor:[self getRandomColor2] size: CGSizeMake(40, 60)];
-    NSLog(@"Change");
+    self.currentObstacleX += 280;
 }
+
+
+
+
+
+
+//-(void)changeColor
+//{
+//    obstacle = [SKSpriteNode spriteNodeWithColor:[self getRandomColor2] size: CGSizeMake(40, 60)];
+//    NSLog(@"Change");
+//}
 
 
 
@@ -274,18 +293,22 @@ static const uint32_t groundCategory = 0x1 << 2;
         case 0:
             obstacleColor = [UIColor blueColor];
             self.wallColor = 1;
+            NSLog(@"Blue Obstacle is activated");
             break;
         case 1:
             obstacleColor = [UIColor redColor];
             self.wallColor = 2;
+            NSLog(@"Red Obstacle is activated");
             break;
         case 2:
             obstacleColor = [UIColor blackColor];
             self.wallColor = 3;
+            NSLog(@"Black Obstacle is activated");
             break;
         case 3:
             obstacleColor = [UIColor greenColor];
             self.wallColor = 4;
+            NSLog(@"Green Obstacle is activated");
             break;
     }
     

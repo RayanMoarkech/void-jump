@@ -12,8 +12,10 @@ Environment
 App Preview
 -
 
-![Main](./AppStore Preview/Main.jpg)
-![Obstacles](./AppStore Preview/Obstacles.jpg)
-![EnjoyTheGame](./AppStore Preview/EnjoyTheGame.jpg)
-![Rate](./AppStore Preview/Rate.jpg)
+![Main](./AppStore%20Preview/Main.jpg)
 
+![Obstacles](./AppStore%20Preview/Obstacles.jpg)
+
+![EnjoyTheGame](./AppStore%20Preview/EnjoyTheGame.jpg)
+
+![Rate](./AppStore%20Preview/Rate.jpg)
